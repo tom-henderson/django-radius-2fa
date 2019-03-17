@@ -10,6 +10,13 @@ class Token(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     secret = models.CharField(default=pyotp.random_base32, max_length=16) # TODO Encrypt the secret
 
+    @property
+    def qr(self):
+        return pyotp.totp.TOTP(self.secret).provisioning_uri(
+            self.user.email,
+            issuer_name="Django" # TODO should be site name / app setting?
+        )
+
 
 class TokenForm(forms.ModelForm):
     class Meta:
