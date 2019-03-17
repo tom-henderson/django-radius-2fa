@@ -18,3 +18,6 @@ git+https://github.com/tom-henderson/django-common
 # Taggit Serializer: Serializer for the Django REST Framework
 # djangorestframework==3.9.2
 # django-taggit-serializer==0.1.7
+
+pyotp==2.2.7
+qrcode-terminal==0.8
