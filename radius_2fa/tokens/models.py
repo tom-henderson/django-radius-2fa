@@ -17,6 +17,12 @@ class Token(models.Model):
             issuer_name="Django" # TODO should be site name / app setting?
         )
 
+    def verify(self, code):
+        totp = pyotp.TOTP(self.secret)
+        result = totp.verify(code)
+        # TODO: track used tokens - they should be one-time use only
+        return result
+
 
 class TokenForm(forms.ModelForm):
     class Meta:
