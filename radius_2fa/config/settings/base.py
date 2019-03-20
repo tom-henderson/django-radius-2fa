@@ -129,6 +129,7 @@ THIRD_PARTY_APPS = (
 )
 
 LOCAL_APPS = (
+    "django_common",
     "tokens",
 )
 
