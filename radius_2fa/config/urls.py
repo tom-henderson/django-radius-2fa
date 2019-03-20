@@ -16,7 +16,7 @@ urlpatterns = [
     path('logout/', LogOutRedirectView.as_view(), name='log_out'),
     path('admin/logout/', LogOutRedirectView.as_view()),
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name='base.html')),
+    path('', TemplateView.as_view(template_name='base.html'), name='index'),
 ]
 
 if settings.DEBUG:

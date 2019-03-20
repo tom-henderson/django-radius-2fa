@@ -1,13 +1,9 @@
 {% extends "base.html" %}
 
+{% load form_extras %}
+
 {% block content %}
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <h1>Site Name</h1>
-      <h3>Log In</h3>
-    </div>
-  </div>
 
   {% if form.errors %}
   <div class="row">
@@ -22,24 +18,31 @@
 
 
   <div class="row">
-    <div class="col-md-offset-3 col-md-6 well">
+    <div class="col-md-offset-3 col-md-6">
 
       <form class="form-horizontal" role="form" method="post" action="{% url 'log_in' %}">
         {% csrf_token %}
 
-        <div class="form-group">
-          <label for="username" class="col-md-2 control-label">Username</label>
+        {% for field in form %}
+
+        <div class="form-group {% if field.errors %}has-error{% endif %}">
+
+          <label for="{{field.id_for_label}}" class="col-md-2 control-label">{{ field.label|title }}</label>
+
           <div class="col-md-10">
-            <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+              {% if field|field_type != "CheckboxInput" %}
+              {{ field }}
+            {% else %}
+              <ul class="list-unstyled">
+                {% for checkbox in field %}
+                <li class="checkbox">{{ checkbox }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="password" class="col-md-2 control-label">Password</label>
-          <div class="col-md-10">
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-          </div>
-        </div>
+        {% endfor %}
 
         <div class="form-group">
           <div class="col-sm-offset-8 col-sm-4">
