@@ -6,13 +6,14 @@ from django.contrib.auth.views import LoginView
 from django.conf import settings
 
 from django_common.views import LogOutRedirectView
+from tokens.forms import TokenAuthenticationForm
 
 import django.contrib.auth.views
 
 admin.autodiscover()
 
 urlpatterns = [
-    path('login/', LoginView.as_view(), name='log_in'),
+    path('login/', LoginView.as_view(form_class=TokenAuthenticationForm), name='log_in'),
     path('logout/', LogOutRedirectView.as_view(), name='log_out'),
     path('admin/logout/', LogOutRedirectView.as_view()),
     path('admin/', admin.site.urls),
